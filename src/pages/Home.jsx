@@ -16,8 +16,9 @@ const Home = () => {
   const { usersState, setUsersState, fetchUsers, fetcMoreUsers } =
     useUserFetch();
   const { region, setRegion, handleSelect } = useRegion();
-  const { seed, generateSeed } = useSeed();
-  const { errorState, handleRange, inputFieldValue, handleInput } = useError();
+  const { seed, generateSeed, handleSeed } = useSeed();
+  const { errorState, handleRange, inputFieldValue, handleInput, erroRange } =
+    useError();
   const { createUser } = useCreate();
   const [hasMore, setHasMore] = useState(true);
   const getData = async (url) => {
@@ -71,14 +72,16 @@ const Home = () => {
               className="mr-1"
               min={0}
               max={10}
-              value={errorState}
+              value={erroRange}
               onChange={handleRange}
             />
           </div>
           <input
             type="number"
-            value={inputFieldValue ? inputFieldValue : errorState}
+            value={errorState}
             onChange={handleInput}
+            min={0}
+            max={1000}
             className="w-16 rounded border"
           />
         </div>
@@ -88,7 +91,7 @@ const Home = () => {
             <input
               type="text"
               value={seed}
-              disabled
+              onChange={handleSeed}
               className="w-32 bg-white rounded border mr-1"
             />
           </div>
